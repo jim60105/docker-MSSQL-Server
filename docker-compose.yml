@@ -44,9 +44,9 @@ services:
   #   build: ./volume-backup
   #   restart: "no"
   #   env_file:
-  #     - /var/run/docker.sock:/var/run/docker.sock:ro
   #     - .env
   #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
   #     - mssql:/volume 
   #     - backup:/backup
   #   environment:
