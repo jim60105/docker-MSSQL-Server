@@ -13,7 +13,7 @@ V=$(su - root -c "docker volume ls -f 'label=${BACKUP_LABEL}' -q")
 for i in ${V}
 do
     echo "Restore ${i}..."
-    su - root -c "docker run -v ${i}:/volume -v '${BACKUP_FOLDER}':/backup --rm loomchild/volume-backup restore -f -c gz ${i}"
+    su - root -c "/volume-backup.sh restore -f -c gz ${i}"
 done
 
 source ${scriptFolder}/startContainer.sh
