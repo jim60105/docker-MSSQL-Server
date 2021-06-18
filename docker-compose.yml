@@ -51,7 +51,7 @@ services:
   #     - backup:/backup
   #   environment:
   #     - BACKUP_LABEL=mssql
-  #   command: /bin/sh /script/backup.sh
+  #   command: /bin/bash /script/backup.sh
 
   restore:
     build: ./volume-backup
