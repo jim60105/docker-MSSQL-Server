@@ -48,7 +48,7 @@ services:
   #   volumes:
   #     - /var/run/docker.sock:/var/run/docker.sock:ro
   #     - mssql:/volume 
-  #     - backup:/backup
+  #     - ${BACKUP_FOLDER}:/backup
   #   environment:
   #     - BACKUP_LABEL=mssql
   #   command: /bin/bash /script/backup.sh
@@ -61,7 +61,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - mssql:/volume 
-      - backup:/backup
+      - ${BACKUP_FOLDER}:/backup
     environment:
       - BACKUP_LABEL=mssql
     command: /bin/bash restore.sh
@@ -69,8 +69,3 @@ services:
 volumes:
   mssql:
     labels: *default-label
-  backup:
-    driver_opts:
-      type: cifs
-      o: ${CIFS_OPTION}
-      device: ${BACKUP_FOLDER}
