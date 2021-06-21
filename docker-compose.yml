@@ -31,21 +31,40 @@ services:
       - .env
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ${BACKUP_FOLDER}:/backup
-      - ./shellScript:/script:ro
+      - ./:/docker-compose:ro
     environment:
-      - BACKUP_LABEL=mssql
       ## JOB number must start from 1
-      - JOB_NAME1=Backup
-      - JOB_COMMAND1=/bin/bash /script/backup.sh
+      - JOB_NAME1=DoJob
+      - JOB_COMMAND1=/bin/bash cd /docker-compose && docker-compose start restore
       - JOB_TIME1=0 0 0 * * 6 #Exec per Week at UTC Sat. 0 a.m.
       - JOB_NOTIFY_ERR1=true
       - JOB_NOTIFY_FAIL1=true
-      # - JOB_NAME1=Restore
-      # - JOB_COMMAND1=/bin/bash /script/restore.sh
-      # - JOB_TIME1=0 0 0 * * 6 #Exec per Week at UTC Sat. 0 a.m.
-      # - JOB_NOTIFY_ERR1=true
-      # - JOB_NOTIFY_FAIL1=true
+
+  # backup:
+  #   build: ./volume-backup
+  #   restart: "no"
+  #   env_file:
+  #     - .env
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #     - mssql:/volume 
+  #     - ${BACKUP_FOLDER}:/backup
+  #   environment:
+  #     - BACKUP_LABEL=mssql
+  #   command: /bin/bash /script/backup.sh
+
+  restore:
+    build: ./volume-backup
+    restart: "no"
+    env_file:
+      - .env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - mssql:/volume 
+      - ${BACKUP_FOLDER}:/backup
+    environment:
+      - BACKUP_LABEL=mssql
+    command: /bin/bash restore.sh
 
 volumes:
   mssql:
