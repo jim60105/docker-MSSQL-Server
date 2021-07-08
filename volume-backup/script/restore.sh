@@ -13,6 +13,9 @@ V=$(su - root -c "docker volume ls -f 'label=${BACKUP_LABEL}' -q")
 for i in ${V}
 do
     echo "Restore ${i}..."
+
+    # volume-backup.sh from base image
+    # https://github.com/loomchild/volume-backup/blob/master/volume-backup.sh
     su - root -c "/volume-backup.sh restore -f -c gz ${i}"
 done
 
