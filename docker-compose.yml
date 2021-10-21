@@ -69,6 +69,8 @@ services:
 volumes:
   mssql:
     labels: *default-label
+    ## If you encounter different volume names during backup/restore, please declare the name here.
+    # name: docker-mssql-server_mssql
   backup:
     driver_opts:
       type: cifs
