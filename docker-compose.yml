@@ -40,7 +40,21 @@ services:
   #     - JOB_NOTIFY_ERR1=true
   #     - JOB_NOTIFY_FAIL1=true
 
-  # backup:
+  backup:
+    build: ./volume-backup
+    restart: "no"
+    env_file:
+      - .env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - mssql:/volume:ro
+      - backup:/backup
+    environment:
+      - BACKUP_LABEL=mssql
+    command: ./backup.sh
+    network_mode: none
+
+  # restore:
   #   build: ./volume-backup
   #   restart: "no"
   #   env_file:
@@ -51,20 +65,8 @@ services:
   #     - backup:/backup
   #   environment:
   #     - BACKUP_LABEL=mssql
-  #   command: /bin/bash /script/backup.sh
-
-  restore:
-    build: ./volume-backup
-    restart: "no"
-    env_file:
-      - .env
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - mssql:/volume 
-      - backup:/backup
-    environment:
-      - BACKUP_LABEL=mssql
-    command: /bin/bash restore.sh
+  #   command: ./restore.sh
+  #   network_mode: none
 
 volumes:
   mssql:
