@@ -47,11 +47,12 @@ services:
       - .env
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - mssql:/volume 
+      - mssql:/volume:ro
       - ${BACKUP_FOLDER}:/backup
     environment:
       - BACKUP_LABEL=mssql
-    command: /bin/bash /script/backup.sh
+    command: ./backup.sh
+    network_mode: none
 
   # restore:
   #   build: ./volume-backup
@@ -61,10 +62,11 @@ services:
   #   volumes:
   #     - /var/run/docker.sock:/var/run/docker.sock:ro
   #     - mssql:/volume 
-  #     - ${BACKUP_FOLDER}:/backup
+  #     - ${BACKUP_FOLDER}:/backup:ro
   #   environment:
   #     - BACKUP_LABEL=mssql
-  #   command: /bin/bash restore.sh
+  #   command: ./restore.sh
+  #   network_mode: none
 
 volumes:
   mssql:

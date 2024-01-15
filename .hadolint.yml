@@ -1,0 +1,3 @@
+ignored:
+  - DL3018 # Pin versions in apk add. Instead of `apk add <package>` use `apk add <package>=<version>`
+  - DL3002 # Last USER should not be root
