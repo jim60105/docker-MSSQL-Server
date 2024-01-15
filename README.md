@@ -12,10 +12,6 @@
 1. 編輯 `docker-compose.yml`
    - 如果要備份，把下方的backup service取消註解
    - 如果要還原，把下方的restore service取消註解
-1. 如果你要「定時」備份或還原
-   1. 啟用jobber service
-   1. 把jobber service environment的`JOB_COMMAND1=....`最後改成backup或restore
-   1. 把`JOB_TIME1=....`改成執行時間，格式說明[在此](https://dshearer.github.io/jobber/doc/v1.4/#time-strings)
 1. ```docker-compose up -d```
 
 ## 手動執行備份、還原
