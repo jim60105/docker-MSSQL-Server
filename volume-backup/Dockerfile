@@ -25,4 +25,4 @@ USER 0
 VOLUME [ "/volume", "/backup" ]
 
 ENTRYPOINT [ "dumb-init", "--" ]
-CMD [ "volume-backup.sh", "-h" ]
+CMD [ "./volume-backup.sh", "-h" ]
