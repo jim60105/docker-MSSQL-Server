@@ -45,8 +45,8 @@ services:
   #     - .env
   #   volumes:
   #     - /var/run/docker.sock:/var/run/docker.sock:ro
-  #     - mssql:/volume 
-  #     - backup:/backup
+  #     - mssql:/volume
+  #     - backup:/backup:ro
   #   environment:
   #     - BACKUP_LABEL=mssql
   #   command: ./restore.sh
