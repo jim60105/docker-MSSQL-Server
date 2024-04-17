@@ -18,7 +18,8 @@ ADD --link --chown=0:0 --chmod=775 \
 COPY --link --chown=0:0 --chmod=775 \
     script/* .
 # MIT
-COPY --chmod=775 LICENSE /licenses/LICENSE
+COPY --link --chown=0:0 --chmod=775 \
+    LICENSE /licenses/LICENSE
 
 # This docker image is designed to be executed with root privileges in order to handle volume files with any permissions.
 USER 0
